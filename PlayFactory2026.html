@@ -398,6 +398,62 @@
       letter-spacing: 0.04em;
       text-shadow: 0 2px 24px rgba(0,0,0,0.8);
     }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      height: 280px;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      filter: grayscale(20%) brightness(0.7);
+      transition: filter 0.5s ease, transform 0.7s ease;
+    }
+    .gallery-item:hover img {
+      filter: grayscale(0%) brightness(0.88);
+      transform: scale(1.06);
+    }
+    .gallery-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.65) 100%);
+      z-index: 1;
+      transition: opacity 0.4s ease;
+    }
+    .gallery-item:hover .gallery-item-overlay {
+      opacity: 0.6;
+    }
+    .gallery-item-label {
+      position: absolute;
+      bottom: 14px;
+      left: 16px;
+      z-index: 2;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.75);
+      text-transform: uppercase;
+    }
+    .gallery-item-label i {
+      color: var(--accent-start);
+      margin-right: 5px;
+    }
+    @media (max-width: 700px) {
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item { height: 200px; }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item { height: 220px; }
+    }
 
     /* ─── SCHEDULE ─── */
     #schedule {
@@ -1033,6 +1089,23 @@
     <div class="gallery-caption">
       <div class="gallery-caption-label"><i class="fa-solid fa-camera"></i>&nbsp;&nbsp;Past Event</div>
       <div class="gallery-caption-text">これが、工場のアソビカタだ。</div>
+    </div>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item fade-in fade-in-delay-1">
+      <img src="試合の決勝.jpg" alt="試合の決勝シーン" />
+      <div class="gallery-item-overlay"></div>
+      <div class="gallery-item-label"><i class="fa-solid fa-gamepad"></i>決勝の瞬間</div>
+    </div>
+    <div class="gallery-item fade-in fade-in-delay-2">
+      <img src="試合社長2.jpg" alt="試合と社長" />
+      <div class="gallery-item-overlay"></div>
+      <div class="gallery-item-label"><i class="fa-solid fa-star"></i>熱戦の記録</div>
+    </div>
+    <div class="gallery-item fade-in fade-in-delay-3">
+      <img src="画像２.jpg" alt="大会の様子" />
+      <div class="gallery-item-overlay"></div>
+      <div class="gallery-item-label"><i class="fa-solid fa-users"></i>大会の熱気</div>
     </div>
   </div>
 </section>
