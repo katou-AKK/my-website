@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>工場のアソビカタ｜新潟県学生eスポーツ大会 2026年リーグ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-primary: #0d0d0d;
+      --bg-secondary: #141414;
+      --bg-card: #1a1a1a;
+      --bg-card-hover: #202020;
+      --accent-start: #ff6b00;
+      --accent-end: #cc0000;
+      --accent-mid: #e83c00;
+      --text-primary: #f0f0f0;
+      --text-secondary: #a0a0a0;
+      --text-muted: #666666;
+      --border-color: #2a2a2a;
+      --glow-orange: rgba(255, 107, 0, 0.3);
+      --glow-red: rgba(204, 0, 0, 0.3);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── GRADIENT TEXT ─── */
+    .gradient-text {
+      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ─── FADE-IN ANIMATION ─── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-in-delay-1 { transition-delay: 0.1s; }
+    .fade-in-delay-2 { transition-delay: 0.2s; }
+    .fade-in-delay-3 { transition-delay: 0.3s; }
+    .fade-in-delay-4 { transition-delay: 0.4s; }
+
+    /* ─── NAVIGATION ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(13, 13, 13, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0 24px;
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .nav-logo {
+      font-weight: 900;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      white-space: nowrap;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--accent-start);
+    }
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+
+    /* ─── HERO ─── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 30%, rgba(232, 60, 0, 0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 70%, rgba(255, 107, 0, 0.07) 0%, transparent 60%),
+        linear-gradient(180deg, #0d0d0d 0%, #111111 100%);
+      z-index: 0;
+    }
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,107,0,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,107,0,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      z-index: 0;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(255,107,0,0.15), rgba(204,0,0,0.15));
+      border: 1px solid rgba(255,107,0,0.3);
+      border-radius: 100px;
+      padding: 6px 18px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--accent-start);
+      margin-bottom: 28px;
+      text-transform: uppercase;
+    }
+    .hero-title {
+      font-size: clamp(2rem, 6vw, 3.8rem);
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      margin-bottom: 12px;
+    }
+    .hero-title-sub {
+      display: block;
+      font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+      font-weight: 500;
+      color: var(--text-secondary);
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+    .hero-catchcopy {
+      font-size: clamp(1.1rem, 3vw, 1.7rem);
+      font-weight: 700;
+      color: var(--text-secondary);
+      letter-spacing: 0.08em;
+      margin-bottom: 48px;
+      padding-top: 8px;
+    }
+    .hero-catchcopy span {
+      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .btn-entry {
+      display: inline-block;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 18px 52px;
+      border-radius: 6px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 24px rgba(255,107,0,0.4), 0 4px 16px rgba(0,0,0,0.4);
+    }
+    .btn-entry::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .btn-entry:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 0 40px rgba(255,107,0,0.6), 0 8px 24px rgba(0,0,0,0.5);
+    }
+    .btn-entry:hover::before {
+      opacity: 1;
+    }
+    .btn-entry i {
+      margin-right: 8px;
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ─── SECTION COMMON ─── */
+    section {
+      padding: 90px 24px;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: var(--accent-start);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 900;
+      line-height: 1.3;
+      margin-bottom: 48px;
+      letter-spacing: -0.01em;
+    }
+    .section-divider {
+      width: 48px;
+      height: 3px;
+      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      border-radius: 2px;
+      margin: 14px 0 48px;
+    }
+
+    /* ─── ABOUT ─── */
+    #about {
+      background: var(--bg-secondary);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 28px 32px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .info-card:hover {
+      border-color: rgba(255,107,0,0.3);
+      box-shadow: 0 0 20px rgba(255,107,0,0.08);
+    }
+    .info-card-icon {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(255,107,0,0.15), rgba(204,0,0,0.15));
+      border: 1px solid rgba(255,107,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: var(--accent-start);
+    }
+    .info-card-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .info-card-value {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .about-description {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-left: 3px solid var(--accent-start);
+      border-radius: 12px;
+      padding: 32px 36px;
+      font-size: 0.97rem;
+      line-height: 1.9;
+      color: var(--text-secondary);
+    }
+
+    /* ─── SCHEDULE ─── */
+    #schedule {
+      background: var(--bg-primary);
+    }
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .schedule-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 32px 24px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      cursor: default;
+    }
+    .schedule-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
+    }
+    .schedule-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255,107,0,0.25);
+      box-shadow: 0 8px 32px rgba(255,107,0,0.12);
+    }
+    .schedule-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--accent-start);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .schedule-title {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+    .schedule-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .schedule-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .schedule-meta-item i {
+      color: var(--accent-start);
+      width: 14px;
+      font-size: 0.8rem;
+    }
+    .schedule-final {
+      border-color: rgba(255,107,0,0.2);
+      background: linear-gradient(145deg, #1d1200, #1a1a1a);
+    }
+    .schedule-final::before {
+      height: 4px;
+    }
+    .badge-final {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 3px 10px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    /* ─── POINTS ─── */
+    #points {
+      background: var(--bg-secondary);
+    }
+    .points-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 40px;
+      align-items: start;
+    }
+    .point-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .point-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 16px 22px;
+      transition: border-color 0.2s;
+    }
+    .point-row:hover {
+      border-color: rgba(255,107,0,0.25);
+    }
+    .point-label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .point-rank-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+    }
+    .rank-1 { background: linear-gradient(135deg,#ffd700,#ff9d00); color: #000; }
+    .rank-2 { background: linear-gradient(135deg,#c0c0c0,#808080); color: #000; }
+    .rank-3 { background: linear-gradient(135deg,#cd7f32,#8b4513); color: #fff; }
+    .rank-other { background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-muted); }
+    .point-value {
+      font-size: 1.1rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .point-note {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-left: 3px solid var(--accent-start);
+      border-radius: 10px;
+      padding: 20px 24px;
+      font-size: 0.87rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-top: 16px;
+    }
+
+    /* ─── RANKING TABLE ─── */
+    #ranking {
+      background: var(--bg-primary);
+    }
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 14px;
+      border: 1px solid var(--border-color);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-card);
+    }
+    thead tr {
+      background: linear-gradient(135deg, rgba(255,107,0,0.12), rgba(204,0,0,0.12));
+      border-bottom: 1px solid rgba(255,107,0,0.2);
+    }
+    th {
+      padding: 16px 24px;
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--accent-start);
+      text-transform: uppercase;
+    }
+    td {
+      padding: 18px 24px;
+      font-size: 0.92rem;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-secondary);
+    }
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+    tbody tr {
+      transition: background 0.2s;
+    }
+    tbody tr:hover {
+      background: rgba(255,107,0,0.04);
+    }
+    .rank-cell {
+      font-weight: 900;
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+    .rank-cell.top1 { color: #ffd700; }
+    .rank-cell.top2 { color: #c0c0c0; }
+    .rank-cell.top3 { color: #cd7f32; }
+    .player-name {
+      font-weight: 700;
+      color: var(--text-primary);
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.04em;
+    }
+    .point-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(255,107,0,0.15), rgba(204,0,0,0.15));
+      border: 1px solid rgba(255,107,0,0.25);
+      border-radius: 100px;
+      padding: 4px 14px;
+      font-size: 0.87rem;
+      font-weight: 700;
+      color: var(--accent-start);
+    }
+    .finalist-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 2px 8px;
+      border-radius: 100px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .table-note {
+      margin-top: 16px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .table-note i {
+      color: var(--accent-start);
+    }
+
+    /* ─── SPONSOR ─── */
+    #sponsor {
+      background: var(--bg-secondary);
+    }
+    .sponsor-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .sponsor-slot {
+      background: var(--bg-card);
+      border: 1px dashed #2e2e2e;
+      border-radius: 10px;
+      height: 90px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: border-color 0.3s;
+      cursor: pointer;
+    }
+    .sponsor-slot:hover {
+      border-color: rgba(255,107,0,0.3);
+      color: var(--accent-start);
+    }
+    .sponsor-slot i {
+      font-size: 1.4rem;
+      opacity: 0.4;
+    }
+    .sponsor-cta {
+      margin-top: 40px;
+      text-align: center;
+      padding: 36px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+    }
+    .sponsor-cta h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .sponsor-cta p {
+      font-size: 0.87rem;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+    .btn-sponsor {
+      display: inline-block;
+      text-decoration: none;
+      border: 1.5px solid rgba(255,107,0,0.5);
+      color: var(--accent-start);
+      font-size: 0.87rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 12px 32px;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-sponsor:hover {
+      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      color: #fff;
+      border-color: transparent;
+    }
+
+    /* ─── CONTACT ─── */
+    #contact {
+      background: var(--bg-primary);
+    }
+    .contact-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 52px 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .contact-left h3 {
+      font-size: 1.4rem;
+      font-weight: 900;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .contact-left p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+    .contact-items {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .contact-item-icon {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(255,107,0,0.15), rgba(204,0,0,0.15));
+      border: 1px solid rgba(255,107,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-start);
+      font-size: 0.95rem;
+    }
+    .contact-item-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .contact-item-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .contact-item-value a {
+      color: var(--accent-start);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .contact-item-value a:hover {
+      color: var(--accent-end);
+      text-decoration: underline;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #080808;
+      border-top: 1px solid var(--border-color);
+      padding: 40px 24px;
+      text-align: center;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .footer-logo {
+      font-size: 1rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+    footer p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* ─── MOBILE MENU ─── */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background: rgba(13,13,13,0.98);
+      border-bottom: 1px solid var(--border-color);
+      padding: 20px 24px;
+      z-index: 99;
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a {
+      display: block;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--accent-start); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .schedule-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { grid-template-columns: 1fr; }
+      .points-layout { grid-template-columns: 1fr; }
+      .sponsor-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 700px) {
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .schedule-grid { grid-template-columns: 1fr; }
+      .contact-card {
+        grid-template-columns: 1fr;
+        padding: 36px 28px;
+      }
+      section { padding: 70px 20px; }
+      .sponsor-grid { grid-template-columns: repeat(2, 1fr); }
+      th, td { padding: 14px 16px; }
+    }
+
+    @media (max-width: 480px) {
+      .sponsor-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-title { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">工場のアソビカタ 2026</div>
+    <ul class="nav-links">
+      <li><a href="#about">大会について</a></li>
+      <li><a href="#schedule">スケジュール</a></li>
+      <li><a href="#ranking">ランキング</a></li>
+      <li><a href="#sponsor">スポンサー</a></li>
+      <li><a href="#contact">お問い合わせ</a></li>
+    </ul>
+    <button class="hamburger" id="hamburgerBtn" aria-label="メニュー">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMobileMenu()">大会について</a>
+  <a href="#schedule" onclick="closeMobileMenu()">スケジュール</a>
+  <a href="#points" onclick="closeMobileMenu()">ポイントシステム</a>
+  <a href="#ranking" onclick="closeMobileMenu()">ランキング</a>
+  <a href="#sponsor" onclick="closeMobileMenu()">スポンサー</a>
+  <a href="#contact" onclick="closeMobileMenu()">お問い合わせ</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content fade-in">
+    <div class="hero-badge"><i class="fa-solid fa-gamepad"></i>&nbsp;&nbsp;新潟県学生eスポーツ大会 2026年リーグ</div>
+    <h1 class="hero-title">
+      <span class="hero-title-sub">新潟県学生eスポーツ大会 2026年リーグ</span>
+      <span class="gradient-text">「工場のアソビカタ」</span>
+    </h1>
+    <p class="hero-catchcopy">
+      <span>「戦えば、工場が見えてくる。」</span>
+    </p>
+    <a href="https://docs.google.com/forms/d/11Hhugf7DqWhNEIwpzQwZ9RJR692Hmd3pb1zD2ScUibM/edit" target="_blank" rel="noopener" class="btn-entry">
+      <i class="fa-solid fa-arrow-right"></i>エントリーはこちら
+    </a>
+  </div>
+  <div class="hero-scroll">
+    <span>SCROLL</span>
+    <i class="fa-solid fa-chevron-down"></i>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <p class="section-label fade-in">About</p>
+    <h2 class="section-title fade-in">大会について</h2>
+    <div class="section-divider fade-in"></div>
+    <div class="about-grid">
+      <div class="info-card fade-in fade-in-delay-1">
+        <div class="info-card-icon"><i class="fa-solid fa-gamepad"></i></div>
+        <div>
+          <div class="info-card-label">使用タイトル</div>
+          <div class="info-card-value">ストリートファイター6</div>
+        </div>
+      </div>
+      <div class="info-card fade-in fade-in-delay-2">
+        <div class="info-card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div>
+          <div class="info-card-label">対象</div>
+          <div class="info-card-value">高校生・高専生・専門学生・大学生・大学院生</div>
+        </div>
+      </div>
+      <div class="info-card fade-in fade-in-delay-3">
+        <div class="info-card-icon"><i class="fa-solid fa-yen-sign"></i></div>
+        <div>
+          <div class="info-card-label">参加費</div>
+          <div class="info-card-value">無料</div>
+        </div>
+      </div>
+      <div class="info-card fade-in fade-in-delay-4">
+        <div class="info-card-icon"><i class="fa-solid fa-trophy"></i></div>
+        <div>
+          <div class="info-card-label">大会形式</div>
+          <div class="info-card-value">年間4大会・個人ポイント制</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-description fade-in">
+      「工場＝きつい・汚い・危険」という固定観念を覆し、学生と企業が就活ではない入口で出会う場をつくることを目的としたeスポーツリーグ。<br />
+      2026年は年間4大会を通じて個人ポイントを競い、<strong style="color:var(--text-primary)">上位16名が決勝大会</strong>に進出します。ゲームを通じて新潟の製造業の魅力を発見しよう。
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section id="schedule">
+  <div class="container">
+    <p class="section-label fade-in">Schedule</p>
+    <h2 class="section-title fade-in">年間スケジュール</h2>
+    <div class="section-divider fade-in"></div>
+    <div class="schedule-grid">
+      <div class="schedule-card fade-in fade-in-delay-1">
+        <div class="schedule-num">Round 1 ／ 予選①</div>
+        <div class="schedule-title">第1戦</div>
+        <div class="schedule-meta">
+          <div class="schedule-meta-item">
+            <i class="fa-solid fa-calendar"></i>
+            <span>2026年 5月</span>
+          </div>
+          <div class="schedule-meta-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>新潟市</span>
+          </div>
+        </div>
+      </div>
+      <div class="schedule-card fade-in fade-in-delay-2">
+        <div class="schedule-num">Round 2 ／ 予選②</div>
+        <div class="schedule-title">第2戦</div>
+        <div class="schedule-meta">
+          <div class="schedule-meta-item">
+            <i class="fa-solid fa-calendar"></i>
+            <span>2026年 7月</span>
+          </div>
+          <div class="schedule-meta-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>三条市</span>
+          </div>
+        </div>
+      </div>
+      <div class="schedule-card fade-in fade-in-delay-3">
+        <div class="schedule-num">Round 3 ／ 予選③</div>
+        <div class="schedule-title">第3戦</div>
+        <div class="schedule-meta">
+          <div class="schedule-meta-item">
+            <i class="fa-solid fa-calendar"></i>
+            <span>2026年 9月</span>
+          </div>
+          <div class="schedule-meta-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>長岡市</span>
+          </div>
+        </div>
+      </div>
+      <div class="schedule-card schedule-final fade-in fade-in-delay-4">
+        <div class="badge-final"><i class="fa-solid fa-crown"></i>&nbsp;FINAL</div>
+        <div class="schedule-num">Round 4 ／ 予選④＆決勝</div>
+        <div class="schedule-title">決勝大会</div>
+        <div class="schedule-meta">
+          <div class="schedule-meta-item">
+            <i class="fa-solid fa-calendar"></i>
+            <span>2026年 11月</span>
+          </div>
+          <div class="schedule-meta-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>柏崎市</span>
+          </div>
+          <div class="schedule-meta-item">
+            <i class="fa-solid fa-users"></i>
+            <span>年間ポイント上位16名による決勝トーナメント</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POINTS -->
+<section id="points">
+  <div class="container">
+    <p class="section-label fade-in">Points</p>
+    <h2 class="section-title fade-in">ポイントシステム</h2>
+    <div class="section-divider fade-in"></div>
+    <div class="points-layout">
+      <div>
+        <div class="point-list">
+          <div class="point-row fade-in fade-in-delay-1">
+            <div class="point-label">
+              <div class="point-rank-icon rank-1"><i class="fa-solid fa-crown"></i></div>
+              優勝
+            </div>
+            <div class="point-value">100 pt</div>
+          </div>
+          <div class="point-row fade-in fade-in-delay-2">
+            <div class="point-label">
+              <div class="point-rank-icon rank-2"><i class="fa-solid fa-medal"></i></div>
+              準優勝
+            </div>
+            <div class="point-value">70 pt</div>
+          </div>
+          <div class="point-row fade-in fade-in-delay-3">
+            <div class="point-label">
+              <div class="point-rank-icon rank-3"><i class="fa-solid fa-medal"></i></div>
+              3位
+            </div>
+            <div class="point-value">50 pt</div>
+          </div>
+          <div class="point-row fade-in fade-in-delay-4">
+            <div class="point-label">
+              <div class="point-rank-icon rank-other">4</div>
+              4位
+            </div>
+            <div class="point-value">40 pt</div>
+          </div>
+          <div class="point-row fade-in">
+            <div class="point-label">
+              <div class="point-rank-icon rank-other">8</div>
+              ベスト8
+            </div>
+            <div class="point-value">25 pt</div>
+          </div>
+          <div class="point-row fade-in">
+            <div class="point-label">
+              <div class="point-rank-icon rank-other"><i class="fa-solid fa-gamepad"></i></div>
+              参加
+            </div>
+            <div class="point-value">10 pt</div>
+          </div>
+        </div>
+        <div class="point-note fade-in">
+          <i class="fa-solid fa-circle-info" style="color:var(--accent-start);margin-right:6px;"></i>
+          予選3大会の合計ポイントで年間ランキングを決定。<br />
+          上位16名が柏崎での決勝大会へ進出します。
+        </div>
+      </div>
+      <div class="fade-in">
+        <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:14px;padding:36px;height:100%;">
+          <p style="font-size:0.78rem;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:16px;">Point Flow</p>
+          <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--border-color);">
+              <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent-start),var(--accent-end));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.85rem;flex-shrink:0;">1</div>
+              <div>
+                <div style="font-size:0.92rem;font-weight:700;color:var(--text-primary);margin-bottom:3px;">予選①②③に参加</div>
+                <div style="font-size:0.8rem;color:var(--text-secondary);">新潟市 / 三条市 / 長岡市の各大会でポイント獲得</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--border-color);">
+              <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent-start),var(--accent-end));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.85rem;flex-shrink:0;">2</div>
+              <div>
+                <div style="font-size:0.92rem;font-weight:700;color:var(--text-primary);margin-bottom:3px;">合計ポイントで年間ランキング確定</div>
+                <div style="font-size:0.8rem;color:var(--text-secondary);">3大会の合算スコアを集計し順位を決定</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:16px;padding:16px 0;">
+              <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#ffd700,#ff9d00);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.85rem;flex-shrink:0;color:#000;">F</div>
+              <div>
+                <div style="font-size:0.92rem;font-weight:700;color:var(--text-primary);margin-bottom:3px;">上位16名が柏崎決勝大会へ</div>
+                <div style="font-size:0.8rem;color:var(--text-secondary);">2026年11月 — 新潟一のファイターが決まる</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RANKING -->
+<section id="ranking">
+  <div class="container">
+    <p class="section-label fade-in">Ranking</p>
+    <h2 class="section-title fade-in">現在のポイントランキング</h2>
+    <div class="section-divider fade-in"></div>
+    <div class="table-wrap fade-in">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:70px;">順位</th>
+            <th>プレイヤー名</th>
+            <th style="width:120px;">ポイント</th>
+            <th style="width:140px;">ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="rank-cell top1">1st</span></td>
+            <td><span class="player-name">Ryu_Niigata</span></td>
+            <td><span class="point-badge">80 pt</span></td>
+            <td><span class="finalist-badge"><i class="fa-solid fa-star"></i> 決勝進出</span></td>
+          </tr>
+          <tr>
+            <td><span class="rank-cell top2">2nd</span></td>
+            <td><span class="player-name">KenMaster_Sanjo</span></td>
+            <td><span class="point-badge">70 pt</span></td>
+            <td><span class="finalist-badge"><i class="fa-solid fa-star"></i> 決勝進出</span></td>
+          </tr>
+          <tr>
+            <td><span class="rank-cell top3">3rd</span></td>
+            <td><span class="player-name">ChunLi_Nagaoka</span></td>
+            <td><span class="point-badge">50 pt</span></td>
+            <td><span class="finalist-badge"><i class="fa-solid fa-star"></i> 決勝進出</span></td>
+          </tr>
+          <tr>
+            <td><span class="rank-cell">4th</span></td>
+            <td><span class="player-name">Zangief_Kashiwazaki</span></td>
+            <td><span class="point-badge">40 pt</span></td>
+            <td><span class="finalist-badge"><i class="fa-solid fa-star"></i> 決勝進出</span></td>
+          </tr>
+          <tr>
+            <td><span class="rank-cell">5th</span></td>
+            <td><span class="player-name">Akuma_Niigata</span></td>
+            <td><span class="point-badge">25 pt</span></td>
+            <td><span class="finalist-badge"><i class="fa-solid fa-star"></i> 決勝進出</span></td>
+          </tr>
+          <tr>
+            <td><span class="rank-cell">6th</span></td>
+            <td><span class="player-name">Guile_Nagaoka</span></td>
+            <td><span class="point-badge">25 pt</span></td>
+            <td><span class="finalist-badge"><i class="fa-solid fa-star"></i> 決勝進出</span></td>
+          </tr>
+          <tr>
+            <td><span class="rank-cell">7th</span></td>
+            <td><span class="player-name">Blanka_Sanjo</span></td>
+            <td><span class="point-badge">10 pt</span></td>
+            <td><span class="finalist-badge"><i class="fa-solid fa-star"></i> 決勝進出</span></td>
+          </tr>
+          <tr>
+            <td><span class="rank-cell">8th</span></td>
+            <td><span class="player-name">DeeJay_Niigata</span></td>
+            <td><span class="point-badge">10 pt</span></td>
+            <td><span class="finalist-badge"><i class="fa-solid fa-star"></i> 決勝進出</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note fade-in">
+      <i class="fa-solid fa-circle-info"></i>
+      データは随時更新予定。サンプルデータを表示中。
+    </p>
+  </div>
+</section>
+
+<!-- SPONSOR -->
+<section id="sponsor">
+  <div class="container">
+    <p class="section-label fade-in">Sponsors</p>
+    <h2 class="section-title fade-in">スポンサー一覧</h2>
+    <div class="section-divider fade-in"></div>
+    <div class="sponsor-grid">
+      <div class="sponsor-slot fade-in fade-in-delay-1"><i class="fa-regular fa-image"></i>SPONSOR</div>
+      <div class="sponsor-slot fade-in fade-in-delay-2"><i class="fa-regular fa-image"></i>SPONSOR</div>
+      <div class="sponsor-slot fade-in fade-in-delay-3"><i class="fa-regular fa-image"></i>SPONSOR</div>
+      <div class="sponsor-slot fade-in fade-in-delay-4"><i class="fa-regular fa-image"></i>SPONSOR</div>
+      <div class="sponsor-slot fade-in fade-in-delay-1"><i class="fa-regular fa-image"></i>SPONSOR</div>
+      <div class="sponsor-slot fade-in fade-in-delay-2"><i class="fa-regular fa-image"></i>SPONSOR</div>
+      <div class="sponsor-slot fade-in fade-in-delay-3"><i class="fa-regular fa-image"></i>SPONSOR</div>
+      <div class="sponsor-slot fade-in fade-in-delay-4"><i class="fa-regular fa-image"></i>SPONSOR</div>
+    </div>
+    <div class="sponsor-cta fade-in">
+      <h3>スポンサーを募集中です</h3>
+      <p>新潟の学生と企業をつなぐeスポーツイベントへのご支援をお待ちしています。<br />詳細はお問い合わせください。</p>
+      <a href="#contact" class="btn-sponsor">スポンサーについて問い合わせる</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <p class="section-label fade-in">Contact</p>
+    <h2 class="section-title fade-in">お問い合わせ</h2>
+    <div class="section-divider fade-in"></div>
+    <div class="contact-card fade-in">
+      <div class="contact-left">
+        <h3>工場のアソビカタ<br />実行委員会</h3>
+        <p>
+          大会への参加・スポンサー・取材・その他のお問い合わせは<br />
+          下記の連絡先までお気軽にご連絡ください。
+        </p>
+      </div>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-item-icon"><i class="fa-solid fa-user"></i></div>
+          <div>
+            <div class="contact-item-label">担当者</div>
+            <div class="contact-item-value">加藤（工場のアソビカタ実行委員会）</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon"><i class="fa-solid fa-envelope"></i></div>
+          <div>
+            <div class="contact-item-label">Email</div>
+            <div class="contact-item-value">
+              <a href="mailto:katou.s1999@gmail.com">katou.s1999@gmail.com</a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon"><i class="fa-solid fa-phone"></i></div>
+          <div>
+            <div class="contact-item-label">TEL</div>
+            <div class="contact-item-value">
+              <a href="tel:07085708572">070-8570-8572</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">工場のアソビカタ 新潟県学生eスポーツ大会 2026年リーグ</div>
+    <p style="margin-top:10px;">&copy; 2026 工場のアソビカタ実行委員会. All rights reserved.</p>
+    <p style="margin-top:6px;">Street Fighter 6 is a trademark of Capcom Co., Ltd.</p>
+  </div>
+</footer>
+
+<script>
+  // Hamburger menu
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburgerBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    const icon = hamburgerBtn.querySelector('i');
+    icon.classList.toggle('fa-bars');
+    icon.classList.toggle('fa-xmark');
+  });
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('open');
+    const icon = hamburgerBtn.querySelector('i');
+    icon.classList.add('fa-bars');
+    icon.classList.remove('fa-xmark');
+  }
+
+  // IntersectionObserver for fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Close mobile menu on outside click
+  document.addEventListener('click', (e) => {
+    if (!mobileMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+      closeMobileMenu();
+    }
+  });
+
+  // Nav background intensity on scroll
+  const navEl = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 80) {
+      navEl.style.borderBottomColor = 'rgba(255,107,0,0.15)';
+    } else {
+      navEl.style.borderBottomColor = 'var(--border-color)';
+    }
+  }, { passive: true });
+</script>
+</body>
+</html>
