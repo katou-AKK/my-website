@@ -137,9 +137,9 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 70% 60% at 50% 30%, rgba(232, 60, 0, 0.12) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 40% at 80% 70%, rgba(255, 107, 0, 0.07) 0%, transparent 60%),
-        linear-gradient(180deg, #0d0d0d 0%, #111111 100%);
+        linear-gradient(180deg, rgba(13,13,13,0.55) 0%, rgba(13,13,13,0.75) 60%, #0d0d0d 100%),
+        radial-gradient(ellipse 70% 60% at 50% 30%, rgba(232, 60, 0, 0.18) 0%, transparent 70%),
+        url('会場風景6.jpg') center center / cover no-repeat;
       z-index: 0;
     }
     .hero-grid {
@@ -340,6 +340,63 @@
       font-size: 0.97rem;
       line-height: 1.9;
       color: var(--text-secondary);
+    }
+
+    /* ─── GALLERY ─── */
+    #gallery {
+      background: var(--bg-primary);
+      padding: 0;
+    }
+    .gallery-wrap {
+      position: relative;
+      width: 100%;
+      max-height: 520px;
+      overflow: hidden;
+    }
+    .gallery-wrap img {
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      filter: grayscale(20%) brightness(0.7);
+      transition: filter 0.5s ease, transform 6s ease;
+    }
+    .gallery-wrap:hover img {
+      filter: grayscale(0%) brightness(0.85);
+      transform: scale(1.03);
+    }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, #0d0d0d 0%, transparent 20%, transparent 70%, #0d0d0d 100%),
+        linear-gradient(90deg, rgba(13,13,13,0.5) 0%, transparent 40%, transparent 60%, rgba(13,13,13,0.5) 100%);
+      z-index: 1;
+    }
+    .gallery-caption {
+      position: absolute;
+      bottom: 48px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .gallery-caption-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: rgba(255,107,0,0.9);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .gallery-caption-text {
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 0.04em;
+      text-shadow: 0 2px 24px rgba(0,0,0,0.8);
     }
 
     /* ─── SCHEDULE ─── */
@@ -895,6 +952,18 @@
     <div class="about-description fade-in">
       「工場＝きつい・汚い・危険」という固定観念を覆し、学生と企業が就活ではない入口で出会う場をつくることを目的としたeスポーツリーグ。<br />
       2026年は年間4大会を通じて個人ポイントを競い、<strong style="color:var(--text-primary)">上位16名が決勝大会</strong>に進出します。ゲームを通じて新潟の製造業の魅力を発見しよう。
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gallery-wrap fade-in">
+    <img src="集合写真.jpg" alt="工場のアソビカタ 集合写真" />
+    <div class="gallery-overlay"></div>
+    <div class="gallery-caption">
+      <div class="gallery-caption-label"><i class="fa-solid fa-camera"></i>&nbsp;&nbsp;Past Event</div>
+      <div class="gallery-caption-text">これが、工場のアソビカタだ。</div>
     </div>
   </div>
 </section>
