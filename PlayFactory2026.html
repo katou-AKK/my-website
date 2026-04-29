@@ -861,6 +861,75 @@
       .sponsor-grid { grid-template-columns: repeat(2, 1fr); }
       .hero-title { font-size: 1.8rem; }
     }
+
+    /* ─── RANKING: card layout on mobile ─── */
+    @media (max-width: 600px) {
+      .table-wrap {
+        border: none;
+        border-radius: 0;
+        overflow-x: visible;
+        background: transparent;
+      }
+      table {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        background: transparent;
+      }
+      thead { display: none; }
+      tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      tbody tr {
+        display: grid;
+        grid-template-columns: 44px 1fr auto;
+        grid-template-rows: auto auto;
+        column-gap: 12px;
+        row-gap: 4px;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 14px 16px;
+      }
+      tbody tr:hover { background: var(--bg-card); }
+      td {
+        padding: 0;
+        border-bottom: none;
+        font-size: 0.85rem;
+      }
+      /* 順位 — 2行にまたがって左端に配置 */
+      td:nth-child(1) {
+        grid-column: 1;
+        grid-row: 1 / 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      /* プレイヤー名 — 上段、列2〜3にまたがる */
+      td:nth-child(2) {
+        grid-column: 2 / 4;
+        grid-row: 1;
+        align-self: end;
+      }
+      /* ポイント — 下段左 */
+      td:nth-child(3) {
+        grid-column: 2;
+        grid-row: 2;
+        align-self: center;
+      }
+      /* ステータス — 下段右 */
+      td:nth-child(4) {
+        grid-column: 3;
+        grid-row: 2;
+        align-self: center;
+        text-align: right;
+      }
+      .finalist-badge { margin-left: 0; }
+      .player-name { font-size: 0.85rem; letter-spacing: 0.02em; }
+      .rank-cell { font-size: 0.9rem; }
+    }
   </style>
 </head>
 <body>
