@@ -915,6 +915,11 @@
     }
     .contact-item {
       display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .contact-item-row {
+      display: flex;
       align-items: center;
       gap: 16px;
     }
@@ -1569,25 +1574,25 @@
       </div>
       <div class="contact-items">
         <div class="contact-item">
-          <div class="contact-item-icon"><i class="fa-solid fa-user"></i></div>
-          <div>
-            <div class="contact-item-label">担当者</div>
+          <div class="contact-item-label">担当者</div>
+          <div class="contact-item-row">
+            <div class="contact-item-icon"><i class="fa-solid fa-user"></i></div>
             <div class="contact-item-value">加藤（工場のアソビカタ実行委員会）</div>
           </div>
         </div>
         <div class="contact-item">
-          <div class="contact-item-icon"><i class="fa-solid fa-envelope"></i></div>
-          <div>
-            <div class="contact-item-label">Email</div>
+          <div class="contact-item-label">Email</div>
+          <div class="contact-item-row">
+            <div class="contact-item-icon"><i class="fa-solid fa-envelope"></i></div>
             <div class="contact-item-value">
               <a href="mailto:katou.s1999@gmail.com">katou.s1999@gmail.com</a>
             </div>
           </div>
         </div>
         <div class="contact-item">
-          <div class="contact-item-icon"><i class="fa-solid fa-phone"></i></div>
-          <div>
-            <div class="contact-item-label">TEL</div>
+          <div class="contact-item-label">TEL</div>
+          <div class="contact-item-row">
+            <div class="contact-item-icon"><i class="fa-solid fa-phone"></i></div>
             <div class="contact-item-value">
               <a href="tel:07085708572">070-8570-8572</a>
             </div>
