@@ -868,14 +868,23 @@
     .btn-sponsor {
       display: inline-block;
       text-decoration: none;
-      border: 1.5px solid rgba(255,107,0,0.5);
-      color: var(--accent-start);
-      font-size: 0.87rem;
+      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      color: #fff;
+      font-size: 1rem;
       font-weight: 700;
       letter-spacing: 0.06em;
-      padding: 12px 32px;
-      border-radius: 6px;
-      transition: background 0.2s, color 0.2s;
+      padding: 16px 48px;
+      border-radius: 8px;
+      border: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 20px rgba(255,107,0,0.35), 0 4px 14px rgba(0,0,0,0.3);
+    }
+    .btn-sponsor:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 0 32px rgba(255,107,0,0.55), 0 8px 20px rgba(0,0,0,0.4);
+      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      color: #fff;
+      border-color: transparent;
     }
     .btn-sponsor:hover {
       background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
